@@ -7,18 +7,26 @@ RM = rm -f
 
 CFDEBUG = -V
 
-LDFLAGS = -Wl,-s,18f8520user.lkr
-CFLAGS  = $(CFDEBUG) -mpic16 -p18f8520 $(LDFLAGS) 
+LDFLAGS = -Wl,-s,18f8520user.lkr -mpic16 -p18f8520
+LDFLAGS += --ivt-loc=800
+CFLAGS  = $(CFDEBUG) $(LDFLAGS)
 
-OBJ = $(SRC:.c=.o)
-OBJ_ASM = $(SRC:.c=.asm)
+OBJ = $(SRC:=.o)
+OBJ_ASM = $(SRC:=.asm)
+OBJ_LST = $(SRC:=.lst)
 
-TRASH = $(OBJ) $(OBJ_ASM) $(TARGET:.hex=.cod)
+TRASH = $(OBJ) $(OBJ_ASM) $(OBJ_LST) $(TARGET:.hex=.cod) $(TARGET:.hex=.lst)
 
-all: $(TARGET)
+all: $(TARGET) $(TARGET:.hex=.lst2)
 
-$(TARGET):
-	$(CC) $(CFLAGS) $(SRC)
+$(TARGET): $(OBJ)
+	$(LD) $(CFLAGS) $(OBJ)
+
+%.c.o : %.c
+	$(CC) $(CFLAGS) -c -o $@ $^
+
+%.lst2 : %.hex
+	gpdasm -c -p 18f8520 $^ > $@
 
 clean:
 	$(RM) $(TARGET) $(TRASH)
