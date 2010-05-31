@@ -2,7 +2,7 @@
 // File: 18f8520i.lkr
 // Sample linker script for the PIC18F8520 processor
 
-LIBPATH .
+//LIBPATH .
 
 //FILES c018i.o
 //FILES clib.lib
