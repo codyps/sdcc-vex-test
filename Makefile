@@ -7,7 +7,7 @@ CC = sdcc
 LD = sdcc
 RM = rm -f
 
-CFDEBUG = -V
+#CFDEBUG = -V
 
 LDFLAGS = -Wl,-s,18f8520user.lkr -mpic16 -p18f8520 --no-crt
 LDFLAGS += --ivt-loc=0x800
