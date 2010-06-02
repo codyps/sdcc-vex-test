@@ -17,7 +17,7 @@ OBJ = $(SRC:=.o)
 OBJ_ASM = $(SRC:=.asm)
 OBJ_LST = $(SRC:=.lst)
 
-TRASH = $(OBJ) $(OBJ_ASM) $(OBJ_LST) $(TARGET:.hex=.cod) $(TARGET:.hex=.lst)
+TRASH = $(OBJ) $(OBJ_ASM) $(OBJ_LST) $(TARGET:.hex=.cod) $(TARGET:.hex=.lst) $(TARGET:.hex=.lst2)
 
 all: $(TARGET) $(TARGET:.hex=.lst2)
 
